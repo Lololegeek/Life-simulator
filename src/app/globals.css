@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 33% 97%;
+    --foreground: 224 30% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 30% 12%;
+    --muted: 220 20% 92%;
+    --muted-foreground: 220 10% 42%;
+    --border: 220 16% 86%;
+    --primary: 252 83% 60%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 168 76% 42%;
+    --accent-foreground: 0 0% 100%;
+    --danger: 0 76% 56%;
+    --danger-foreground: 0 0% 100%;
+    --success: 142 66% 40%;
+    --warning: 35 92% 48%;
+    color-scheme: light;
+  }
+  .dark {
+    --background: 228 28% 7%;
+    --foreground: 220 20% 94%;
+    --card: 228 24% 11%;
+    --card-foreground: 220 20% 94%;
+    --muted: 228 18% 17%;
+    --muted-foreground: 220 12% 62%;
+    --border: 228 16% 20%;
+    --primary: 252 90% 68%;
+    --primary-foreground: 0 0% 100%;
+    --accent: 168 70% 45%;
+    --danger: 0 80% 62%;
+    --success: 142 60% 50%;
+    --warning: 38 95% 56%;
+    color-scheme: dark;
+  }
+  * {
+    @apply border-border;
+  }
+  html,
+  body {
+    @apply bg-background text-foreground antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.bg-aurora {
+  background:
+    radial-gradient(60rem 40rem at 10% -10%, hsl(var(--primary) / 0.18), transparent 60%),
+    radial-gradient(50rem 30rem at 110% 10%, hsl(var(--accent) / 0.16), transparent 60%),
+    hsl(var(--background));
+}
+
+.globe-dots {
+  background-image: radial-gradient(hsl(var(--foreground) / 0.12) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+/* driver.js tour theme */
+.driver-popover.life-tour {
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  border-radius: 1rem;
+  border: 1px solid hsl(var(--border));
+}
+.driver-popover.life-tour .driver-popover-title {
+  font-family: var(--font-display);
+}
+.driver-popover.life-tour button {
+  text-shadow: none;
+  border-radius: 0.6rem;
+}
