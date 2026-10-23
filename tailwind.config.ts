@@ -18,10 +18,12 @@ const config: Config = {
         success: 'hsl(var(--success))',
         warning: 'hsl(var(--warning))',
       },
-      borderRadius: { xl: '1rem', '2xl': '1.25rem' },
+      borderRadius: { lg: '0.5rem', xl: '0.75rem', '2xl': '1rem' },
+      boxShadow: { ink: '4px 4px 0 hsl(var(--foreground))', 'ink-sm': '2px 2px 0 hsl(var(--foreground))' },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'Georgia', 'serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'monospace'],
       },
       keyframes: {
         float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-6px)' } },

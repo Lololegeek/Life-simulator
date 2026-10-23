@@ -40,7 +40,7 @@ export function ActivitiesPanel() {
                     disabled={!!locked}
                     onClick={() => run((ch) => doActivity(ch, a.id))}
                     className={cn(
-                      'flex flex-col items-start gap-0.5 rounded-xl border border-border p-2.5 text-left transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md disabled:translate-y-0 disabled:opacity-45 disabled:shadow-none',
+                      'flex flex-col items-start gap-0.5 rounded-xl border border-foreground/10 p-2.5 text-left transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md disabled:translate-y-0 disabled:opacity-45 disabled:shadow-none',
                     )}
                   >
                     <span className="text-2xl">{a.icon}</span>

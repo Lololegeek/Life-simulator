@@ -33,7 +33,7 @@ export const ACHIEVEMENTS: Achievement[] = [
   { id: 'hundredk', name: 'Petit pécule', description: 'Atteindre 100 000 $ de patrimoine.', icon: '💵', rarity: 'commun', check: (c) => netWorth(c) >= 100_000 },
   { id: 'millionaire', name: 'Millionnaire', description: 'Atteindre 1 million de $ de patrimoine.', icon: '💰', rarity: 'rare', check: (c) => netWorth(c) >= 1_000_000 },
   { id: 'billionaire', name: 'Milliardaire', description: 'Atteindre 1 milliard de $ de patrimoine.', icon: '🤑', rarity: 'légendaire', check: (c) => netWorth(c) >= 1_000_000_000 },
-  { id: 'bankrupt', name: 'Fauché·e', description: 'Avoir plus de 50 000 $ de dettes.', icon: '📉', rarity: 'rare', check: (c) => c.money - c.debt < -50_000 },
+  { id: 'bankrupt', name: 'Fauché·e', description: 'Faire faillite.', icon: '📉', rarity: 'rare', check: (c) => !!c.flags.bankrupt },
   { id: 'homeowner', name: 'Propriétaire', description: 'Acheter un bien immobilier.', icon: '🏠', rarity: 'commun', check: (c) => c.assets.some((a) => a.kind === 'house') },
   { id: 'island', name: 'Robinson de luxe', description: 'Posséder une île privée.', icon: '🏝️', rarity: 'légendaire', check: (c) => c.assets.some((a) => a.catalogId === 'island') },
   { id: 'married', name: 'Oui, je le veux', description: 'Se marier.', icon: '💍', rarity: 'commun', check: (c) => !!c.flags.married },

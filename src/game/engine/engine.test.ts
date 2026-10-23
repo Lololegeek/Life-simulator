@@ -61,6 +61,8 @@ describe('life engine', () => {
       const c = await playLife(`life-${i}`, i % 2 === 0);
       expect(c.alive).toBe(false);
       expect(Number.isFinite(netWorth(c))).toBe(true);
+      // Overdrafts must never spiral out of control (bankruptcy resets them).
+      expect(c.money).toBeGreaterThan(-200_000);
       for (const v of Object.values(c.stats)) expect(v).toBeGreaterThanOrEqual(0);
       expect(computeRibbon(c).label).toBeTruthy();
       expect(summarize(c).age).toBe(c.age);

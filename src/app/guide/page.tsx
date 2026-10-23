@@ -8,7 +8,7 @@ export const metadata = { title: 'Guide — 1 sur 8 milliards' };
 
 export default function GuidePage() {
   return (
-    <main className="bg-aurora min-h-dvh px-5 py-10">
+    <main className="min-h-dvh px-5 py-10">
       <article className="mx-auto max-w-3xl rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-10">
         <Link href="/" className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-primary">
           <ArrowLeft className="h-4 w-4" /> Retour au jeu

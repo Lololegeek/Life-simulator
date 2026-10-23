@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const statScale = chroma.scale(['#ef4444', '#f59e0b', '#22c55e']).mode('lch').domain([0, 50, 100]);
+const statScale = chroma.scale(['#c2412d', '#d1962a', '#3d8b5c']).mode('lch').domain([0, 50, 100]);
 
 /** Red → amber → green colour for a 0-100 stat. */
 export const statColor = (value: number) => statScale(value).hex();

@@ -31,7 +31,7 @@ export function GraveyardDialog({ open, onOpenChange }: { open: boolean; onOpenC
           {graveyard.slice(0, shown).map((g) => {
             const ribbon = RIBBONS[g.ribbon];
             return (
-              <div key={g.id + g.diedAt} className="flex items-center gap-3 rounded-xl border border-border p-3">
+              <div key={g.id + g.diedAt} className="flex items-center gap-3 rounded-xl border border-foreground/10 p-3">
                 <div className="text-3xl">{flagOf(g.countryCode)}</div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">

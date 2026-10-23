@@ -1,8 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useCharacter } from './hooks';
 
@@ -13,21 +12,28 @@ export function AgeButton({ onAge, compact }: { onAge: () => void; compact?: boo
   return (
     <motion.button
       id="tour-age"
-      whileTap={{ scale: 0.95 }}
-      whileHover={{ scale: 1.01 }}
+      whileTap={{ y: 3, boxShadow: '0px 0px 0 hsl(var(--primary))' }}
       onClick={onAge}
       disabled={blocked}
+      style={{ boxShadow: '0 4px 0 hsl(var(--primary))' }}
       className={cn(
-        'group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-gradient-to-r from-primary via-fuchsia-500 to-accent font-display font-extrabold text-white shadow-lg shadow-primary/30 transition disabled:opacity-60',
-        compact ? 'h-14 text-lg' : 'h-16 text-xl',
+        'group relative flex w-full items-center justify-between overflow-hidden rounded-full bg-foreground pl-6 pr-2 text-background transition disabled:cursor-not-allowed disabled:opacity-60',
+        compact ? 'h-14' : 'h-16',
       )}
     >
-      <span className="absolute inset-0 -translate-x-full bg-white/20 transition duration-700 group-hover:translate-x-full" />
-      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/25">
-        <Plus className="h-6 w-6" strokeWidth={3} />
+      <span className="flex flex-col items-start leading-none">
+        <span className={cn('font-display font-medium italic', compact ? 'text-xl' : 'text-2xl')}>{blocked ? (compact ? 'Décide d’abord…' : t('game.pendingEvent')) : t('game.age')}</span>
+        {!blocked && !compact && <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] opacity-60">Espace · une année passe</span>}
       </span>
-      {blocked ? t('game.pendingEvent') : t('game.age')}
-      {!compact && !blocked && <kbd className="rounded-md bg-white/20 px-1.5 py-0.5 text-[10px] font-semibold">Espace</kbd>}
+      <span className={cn('flex items-center justify-center gap-1 rounded-full bg-primary font-mono font-semibold text-primary-foreground', compact ? 'h-10 px-4 text-sm' : 'h-12 px-5')}>
+        <AnimatePresence mode="popLayout">
+          <motion.span key={c.age} initial={{ y: 14, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -14, opacity: 0 }}>
+            {c.age}
+          </motion.span>
+        </AnimatePresence>
+        <span>→</span>
+        <span>{c.age + 1}</span>
+      </span>
     </motion.button>
   );
 }

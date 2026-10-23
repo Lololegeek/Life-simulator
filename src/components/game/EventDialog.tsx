@@ -20,7 +20,13 @@ export function EventDialog() {
         <AnimatePresence mode="wait">
           {ev && (
             <motion.div key={ev.eventId + c.pending.length} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="space-y-4">
-              <motion.div initial={{ rotate: -15, scale: 0.5 }} animate={{ rotate: 0, scale: 1 }} transition={{ type: 'spring', bounce: 0.6 }} className="text-6xl">
+              <div className="label">Âge {c.age} · événement</div>
+              <motion.div
+                initial={{ rotate: -15, scale: 0.5 }}
+                animate={{ rotate: 0, scale: 1 }}
+                transition={{ type: 'spring', bounce: 0.6 }}
+                className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-foreground/15 bg-muted text-5xl"
+              >
                 {ev.icon}
               </motion.div>
               <DialogTitle>
@@ -29,7 +35,7 @@ export function EventDialog() {
               <DialogDescription className="text-base text-foreground/80">
                 <Balancer>{ev.text}</Balancer>
               </DialogDescription>
-              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('game.choose')}</p>
+              <p className="label border-t border-dashed border-foreground/20 pt-4">{t('game.choose')}</p>
               <div className="flex flex-col gap-2">
                 {ev.choices.map((label, i) => (
                   <Button key={label} variant={i === 0 ? 'default' : 'outline'} size="lg" onClick={() => run((ch) => resolveChoice(ch, i))}>

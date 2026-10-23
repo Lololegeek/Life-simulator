@@ -32,7 +32,7 @@ export function AssetsPanel() {
             const icon = CATALOG.find((x) => x.id === a.catalogId)?.icon;
             const diff = a.value - a.purchasePrice;
             return (
-              <div key={a.id} className="flex items-center gap-3 rounded-xl border border-border p-2">
+              <div key={a.id} className="flex items-center gap-3 rounded-xl border border-foreground/10 p-2">
                 <span className="text-3xl">{icon}</span>
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm font-semibold">{a.name}</div>
@@ -67,7 +67,7 @@ export function AssetsPanel() {
                   const price = local(c, i.price);
                   const afford = c.money >= price;
                   return (
-                    <div key={i.id} className={cn('flex items-center gap-3 rounded-xl border border-border p-2', !afford && 'opacity-55')}>
+                    <div key={i.id} className={cn('flex items-center gap-3 rounded-xl border border-foreground/10 p-2', !afford && 'opacity-55')}>
                       <span className="text-2xl">{i.icon}</span>
                       <div className="min-w-0 flex-1">
                         <div className="truncate text-sm font-semibold">{i.name}</div>
@@ -118,7 +118,7 @@ function StockRow({ symbol, name, icon, disabled }: { symbol: string; name: stri
   const amount = Math.max(0, Math.round((Math.max(0, c.money) * pct) / 100));
 
   return (
-    <div className="rounded-xl border border-border p-2">
+    <div className="rounded-xl border border-foreground/10 p-2">
       <button className="flex w-full items-center gap-3 text-left" onClick={() => setOpen((o) => !o)}>
         <span className="text-2xl">{icon}</span>
         <div className="min-w-0 flex-1">

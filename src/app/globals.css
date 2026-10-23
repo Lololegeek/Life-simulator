@@ -4,37 +4,39 @@
 
 @layer base {
   :root {
-    --background: 220 33% 97%;
-    --foreground: 224 30% 12%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 30% 12%;
-    --muted: 220 20% 92%;
-    --muted-foreground: 220 10% 42%;
-    --border: 220 16% 86%;
-    --primary: 252 83% 60%;
-    --primary-foreground: 0 0% 100%;
-    --accent: 168 76% 42%;
-    --accent-foreground: 0 0% 100%;
-    --danger: 0 76% 56%;
-    --danger-foreground: 0 0% 100%;
-    --success: 142 66% 40%;
-    --warning: 35 92% 48%;
+    /* Paper & ink */
+    --background: 40 33% 93%;
+    --foreground: 30 8% 10%;
+    --card: 42 45% 97%;
+    --card-foreground: 30 8% 10%;
+    --muted: 38 25% 88%;
+    --muted-foreground: 32 7% 40%;
+    --border: 36 20% 80%;
+    --primary: 12 76% 52%;
+    --primary-foreground: 40 60% 97%;
+    --accent: 164 56% 27%;
+    --accent-foreground: 40 60% 97%;
+    --danger: 4 66% 47%;
+    --danger-foreground: 40 60% 97%;
+    --success: 148 40% 36%;
+    --warning: 38 78% 46%;
     color-scheme: light;
   }
   .dark {
-    --background: 228 28% 7%;
-    --foreground: 220 20% 94%;
-    --card: 228 24% 11%;
-    --card-foreground: 220 20% 94%;
-    --muted: 228 18% 17%;
-    --muted-foreground: 220 12% 62%;
-    --border: 228 16% 20%;
-    --primary: 252 90% 68%;
-    --primary-foreground: 0 0% 100%;
-    --accent: 168 70% 45%;
-    --danger: 0 80% 62%;
-    --success: 142 60% 50%;
-    --warning: 38 95% 56%;
+    --background: 36 10% 7%;
+    --foreground: 40 35% 89%;
+    --card: 36 9% 10.5%;
+    --card-foreground: 40 35% 89%;
+    --muted: 36 8% 16%;
+    --muted-foreground: 38 10% 60%;
+    --border: 36 8% 20%;
+    --primary: 14 90% 62%;
+    --primary-foreground: 30 10% 8%;
+    --accent: 162 45% 48%;
+    --accent-foreground: 30 10% 8%;
+    --danger: 4 75% 60%;
+    --success: 146 40% 52%;
+    --warning: 40 85% 58%;
     color-scheme: dark;
   }
   * {
@@ -44,32 +46,75 @@
   body {
     @apply bg-background text-foreground antialiased;
     -webkit-tap-highlight-color: transparent;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
   }
 }
 
-.bg-aurora {
-  background:
-    radial-gradient(60rem 40rem at 10% -10%, hsl(var(--primary) / 0.18), transparent 60%),
-    radial-gradient(50rem 30rem at 110% 10%, hsl(var(--accent) / 0.16), transparent 60%),
-    hsl(var(--background));
+@layer components {
+  /* Small caps labels, like the fields of an ID document */
+  .label {
+    @apply font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground;
+  }
+  .num {
+    @apply font-mono tabular-nums;
+  }
 }
 
-.globe-dots {
-  background-image: radial-gradient(hsl(var(--foreground) / 0.12) 1px, transparent 1px);
-  background-size: 18px 18px;
+/* Paper grain shared by every screen */
+.paper {
+  background-color: hsl(var(--background));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+
+/* Ruled notebook lines */
+.ruled {
+  background-image: linear-gradient(hsl(var(--border) / 0.55) 1px, transparent 1px);
+  background-size: 100% 28px;
+}
+
+.dotgrid {
+  background-image: radial-gradient(hsl(var(--foreground) / 0.16) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee {
+  animation: marquee 60s linear infinite;
+}
+
+/* Hide scrollbars on horizontal strips */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
 
 /* driver.js tour theme */
 .driver-popover.life-tour {
   background: hsl(var(--card));
   color: hsl(var(--foreground));
-  border-radius: 1rem;
-  border: 1px solid hsl(var(--border));
+  border-radius: 14px;
+  border: 1px solid hsl(var(--foreground) / 0.15);
+  box-shadow: 6px 6px 0 hsl(var(--foreground) / 0.9);
+  font-family: var(--font-sans);
 }
 .driver-popover.life-tour .driver-popover-title {
   font-family: var(--font-display);
+  font-size: 20px;
 }
-.driver-popover.life-tour button {
+.driver-popover.life-tour .driver-popover-arrow { display: none; }
+.driver-popover.life-tour footer button {
   text-shadow: none;
-  border-radius: 0.6rem;
+  border-radius: 999px;
+  padding: 6px 12px;
+  border: 1px solid hsl(var(--foreground) / 0.25);
+  background: transparent;
+  color: hsl(var(--foreground));
+}
+.driver-popover.life-tour footer button.driver-popover-next-btn {
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
 }

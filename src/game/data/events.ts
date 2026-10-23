@@ -277,6 +277,7 @@ export const EVENTS: GameEvent[] = [
   },
   {
     id: 'scam_call', icon: '📞', minAge: 25, maxAge: 95, weight: 2,
+    when: (c) => c.money > 500,
     title: 'Appel suspect', text: 'Un « conseiller bancaire » t’appelle : ton compte serait piraté, il te faut confirmer tes codes.',
     choices: [
       { label: 'Donner tes codes', run: (c) => { const loss = Math.round(Math.max(0, c.money) * 0.3); c.money -= loss; adjust(c, 'happiness', -10); return bad(`C’était une arnaque. Tu as perdu ${money(loss)}.`); } },

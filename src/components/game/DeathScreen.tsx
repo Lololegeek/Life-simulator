@@ -48,26 +48,33 @@ export function DeathScreen() {
   };
 
   return (
-    <main className="bg-aurora min-h-dvh px-4 py-8">
+    <main className="min-h-dvh px-4 py-8">
       <div className="mx-auto max-w-4xl space-y-5">
         <motion.div initial={{ y: 30, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ type: 'spring', bounce: 0.3 }}>
-          <div ref={tombRef} className="relative overflow-hidden rounded-[2rem] border border-border bg-card p-6 text-center shadow-xl sm:p-10">
-            <div className="globe-dots pointer-events-none absolute inset-0 opacity-40" />
+          <div ref={tombRef} className="relative overflow-hidden rounded-t-[10rem] rounded-b-2xl border border-foreground/80 bg-card px-6 pb-8 pt-14 text-center shadow-ink sm:px-12">
+            <div className="dotgrid pointer-events-none absolute inset-0 opacity-30" />
             <div className="relative space-y-4">
-              <p className="font-display text-xs font-bold uppercase tracking-[0.35em] text-muted-foreground">{t('death.title')}</p>
+              <p className="label">✝ {t('death.title')} ✝</p>
               <Avatar seed={c.id + c.firstName} age={c.age} gender={c.gender} dead className="mx-auto h-28 w-28" />
-              <h1 className="font-display text-4xl font-extrabold sm:text-5xl">{fullName(c)}</h1>
-              <p className="text-lg text-muted-foreground">
-                {flagOf(c.birthCountry)} {c.birthYear} – {c.birthYear + c.age} · {c.age} ans
+              <h1 className="font-display text-4xl font-medium tracking-tight sm:text-6xl">{fullName(c)}</h1>
+              <p className="num text-lg text-muted-foreground">
+                {flagOf(c.birthCountry)} {c.birthYear} — {c.birthYear + c.age} · {c.age} ans
               </p>
               <p className="mx-auto max-w-lg text-sm">
                 Né·e à {c.countriesLived.length > 1 ? countryName(c.birthCountry, i18n.language) : `${c.city}, ${countryName(c.birthCountry, i18n.language)}`}, mort·e {c.causeOfDeath}.
               </p>
-              <div className="mx-auto inline-flex flex-col items-center rounded-2xl bg-primary/10 px-6 py-3">
-                <span className="text-5xl">{ribbon.icon}</span>
-                <span className="font-display text-xl font-extrabold text-primary">{ribbon.label}</span>
-                <span className="text-xs text-muted-foreground">{ribbon.description}</span>
-              </div>
+              <motion.div
+                initial={{ scale: 2.2, opacity: 0, rotate: -18 }}
+                animate={{ scale: 1, opacity: 1, rotate: -6 }}
+                transition={{ delay: 0.5, type: 'spring', bounce: 0.45 }}
+                className="mx-auto inline-flex flex-col items-center rounded-lg border-[3px] border-double border-primary px-6 py-2 text-primary"
+              >
+                <span className="font-mono text-[10px] uppercase tracking-[0.3em]">Verdict</span>
+                <span className="font-display text-3xl font-semibold uppercase italic">
+                  {ribbon.icon} {ribbon.label}
+                </span>
+              </motion.div>
+              <p className="text-sm italic text-muted-foreground">« {ribbon.description} »</p>
               <div className="grid grid-cols-2 gap-2 text-left sm:grid-cols-4">
                 <Fact label="Patrimoine" value={money(netWorth(c))} />
                 <Fact label="Métier" value={lastJob} />
@@ -93,7 +100,7 @@ export function DeathScreen() {
         </motion.div>
 
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Button size="lg" className="flex-1" onClick={quitLife}>
+          <Button size="lg" variant="primary" className="flex-1" onClick={quitLife}>
             <RotateCcw className="h-5 w-5" /> {t('death.newLife')}
           </Button>
           <Button size="lg" variant="outline" onClick={download}>
@@ -140,7 +147,7 @@ export function DeathScreen() {
                     const a = getAchievement(id);
                     if (!a) return null;
                     return (
-                      <div key={id} className="w-36 shrink-0 rounded-xl border border-border p-3 text-center">
+                      <div key={id} className="w-36 shrink-0 rounded-xl border border-foreground/10 p-3 text-center">
                         <div className="text-3xl">{a.icon}</div>
                         <div className="mt-1 text-xs font-semibold">{a.name}</div>
                         <div className="text-[10px] text-muted-foreground">{a.rarity}</div>
@@ -167,7 +174,7 @@ export function DeathScreen() {
                   <Tooltip contentStyle={{ borderRadius: 12, fontSize: 12 }} labelFormatter={(a) => `Âge ${a}`} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   {LINES.map((l) => (
-                    <Line key={l.key} type="monotone" dataKey={l.key} name={l.name} stroke={l.color} dot={false} strokeWidth={2} />
+                    <Line key={l.key} isAnimationActive={false} type="monotone" dataKey={l.key} name={l.name} stroke={l.color} dot={false} strokeWidth={2} />
                   ))}
                 </LineChart>
               </ResponsiveContainer>
@@ -177,15 +184,15 @@ export function DeathScreen() {
                 <AreaChart data={c.history}>
                   <defs>
                     <linearGradient id="nw" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#22c55e" stopOpacity={0.5} />
-                      <stop offset="100%" stopColor="#22c55e" stopOpacity={0} />
+                      <stop offset="0%" stopColor="#3d8b5c" stopOpacity={0.5} />
+                      <stop offset="100%" stopColor="#3d8b5c" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                   <XAxis dataKey="age" fontSize={11} />
                   <YAxis fontSize={11} width={56} tickFormatter={(v: number) => money(v, true)} />
                   <Tooltip contentStyle={{ borderRadius: 12, fontSize: 12 }} formatter={(v: number) => [money(v), 'Patrimoine']} labelFormatter={(a) => `Âge ${a}`} />
-                  <Area type="monotone" dataKey="netWorth" stroke="#22c55e" fill="url(#nw)" strokeWidth={2} />
+                  <Area isAnimationActive={false} type="monotone" dataKey="netWorth" stroke="#3d8b5c" fill="url(#nw)" strokeWidth={2} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -212,9 +219,9 @@ export function DeathScreen() {
 
 function Fact({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl bg-muted px-3 py-2">
-      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
-      <div className="truncate text-sm font-semibold">{value}</div>
+    <div className="border-t border-foreground/15 px-1 pt-2">
+      <div className="label">{label}</div>
+      <div className="truncate text-sm font-medium">{value}</div>
     </div>
   );
 }

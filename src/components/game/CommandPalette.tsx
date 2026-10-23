@@ -66,7 +66,7 @@ export function CommandPalette() {
     <DialogPrimitive.Root open={open} onOpenChange={(o) => { setOpen(o); if (!o) setQuery(''); }}>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-[80] bg-black/50 backdrop-blur-sm" />
-        <DialogPrimitive.Content className="fixed left-1/2 top-[15%] z-[80] w-[calc(100vw-2rem)] max-w-lg -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
+        <DialogPrimitive.Content className="fixed left-1/2 top-[15%] z-[80] w-[calc(100vw-2rem)] max-w-lg -translate-x-1/2 overflow-hidden rounded-2xl border border-foreground/10 bg-card shadow-2xl">
           <DialogPrimitive.Title className="sr-only">Palette de commandes</DialogPrimitive.Title>
           <Command shouldFilter={false} loop>
             <Command.Input value={query} onValueChange={setQuery} placeholder="Que veux-tu faire ?" className="w-full border-b border-border bg-transparent px-4 py-3.5 text-sm outline-none" />

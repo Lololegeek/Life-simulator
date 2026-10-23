@@ -2,11 +2,13 @@
 
 import { useMemo } from 'react';
 import { createAvatar } from '@dicebear/core';
-import { adventurer } from '@dicebear/collection';
+import { notionists } from '@dicebear/collection';
 import { cn } from '@/lib/utils';
 
 const PET_EMOJI: Record<string, string> = { Chien: '🐕', Chat: '🐈', Lapin: '🐇', Perroquet: '🦜', Hamster: '🐹', Tortue: '🐢' };
+const BACKGROUNDS = ['f3d9b1', 'ecc8ae', 'cfe1d4', 'd9d6ea', 'f2c6b9', 'e7e0c9'];
 
+/** Hand-drawn portrait, generated from a seed (dicebear "notionists"). */
 export function Avatar({
   seed,
   age,
@@ -24,26 +26,23 @@ export function Avatar({
 }) {
   const uri = useMemo(() => {
     if (species) return null;
-    return createAvatar(adventurer, {
+    return createAvatar(notionists, {
       seed,
-      backgroundColor: [gender === 'F' ? 'ffd5dc' : 'c0aede', 'b6e3f4', 'd1d4f9', 'ffdfbf'],
-      backgroundType: ['gradientLinear'],
-      hairColor: age >= 62 ? ['dddddd', 'c4c4c4'] : age >= 48 ? ['9e9e9e', '6a4e35'] : undefined,
-      glassesProbability: age > 50 ? 45 : 8,
-      featuresProbability: age < 10 ? 0 : 15,
-      ...(gender === 'M'
-        ? { hair: ['short01', 'short02', 'short03', 'short04', 'short05', 'short06', 'short07', 'short08', 'short09', 'short10', 'short11', 'short12'] as never }
-        : {}),
+      backgroundColor: BACKGROUNDS,
+      beardProbability: gender === 'M' && age >= 18 ? 35 : 0,
+      glassesProbability: age >= 55 ? 55 : age >= 12 ? 15 : 0,
+      gestureProbability: 0,
+      bodyIconProbability: 0,
     }).toDataUri();
   }, [seed, age, gender, species]);
 
   return (
-    <div className={cn('relative shrink-0 overflow-hidden rounded-2xl bg-muted', dead && 'grayscale', className)}>
+    <div className={cn('relative shrink-0 overflow-hidden rounded-xl border border-foreground/15 bg-muted', dead && 'grayscale', className)}>
       {uri ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={uri} alt="" className="h-full w-full" draggable={false} />
       ) : (
-        <div className="flex h-full w-full items-center justify-center text-2xl">{PET_EMOJI[species ?? ''] ?? '🐾'}</div>
+        <div className="flex h-full w-full items-center justify-center bg-[#e7e0c9] text-2xl">{PET_EMOJI[species ?? ''] ?? '🐾'}</div>
       )}
     </div>
   );

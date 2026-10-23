@@ -73,7 +73,7 @@ export function CareerPanel() {
                   <button
                     key={m.id}
                     onClick={() => run((ch) => enroll(ch, m.id))}
-                    className={cn('rounded-xl border border-border p-2 text-left transition hover:border-primary hover:bg-primary/5', c.stats.smarts < m.minSmarts - 15 && 'opacity-50')}
+                    className={cn('rounded-xl border border-foreground/10 p-2 text-left transition hover:border-primary hover:bg-primary/5', c.stats.smarts < m.minSmarts - 15 && 'opacity-50')}
                   >
                     <div className="text-sm font-semibold">
                       {m.icon} {m.name}
@@ -172,7 +172,7 @@ export function CareerPanel() {
                   </AccordionTrigger>
                   <AccordionContent className="space-y-1.5">
                     {list.map((o) => (
-                      <div key={o.job.id} className={cn('flex items-center gap-3 rounded-xl border border-border p-2', o.locked && 'opacity-55')}>
+                      <div key={o.job.id} className={cn('flex items-center gap-3 rounded-xl border border-foreground/10 p-2', o.locked && 'opacity-55')}>
                         <span className="text-2xl">{o.job.icon}</span>
                         <div className="min-w-0 flex-1">
                           <div className="truncate text-sm font-semibold">{o.title}</div>

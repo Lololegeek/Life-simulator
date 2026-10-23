@@ -46,7 +46,7 @@ export function AchievementsDialog({ open, onOpenChange }: { open: boolean; onOp
                   {list.map((a) => {
                     const at = unlocked[a.id];
                     return (
-                      <div key={a.id} className={cn('flex items-center gap-3 rounded-xl border border-border p-3', !at && 'opacity-50 grayscale')}>
+                      <div key={a.id} className={cn('flex items-center gap-3 rounded-xl border border-foreground/10 p-3', !at && 'opacity-50 grayscale')}>
                         <div className="text-3xl">{at ? a.icon : '🔒'}</div>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">

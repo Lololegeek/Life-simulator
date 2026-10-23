@@ -12,7 +12,7 @@ export function PopoverContent({ className, ...props }: React.ComponentPropsWith
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
         sideOffset={6}
-        className={cn('z-[60] w-72 rounded-xl border border-border bg-card p-4 shadow-xl animate-in fade-in-0 zoom-in-95', className)}
+        className={cn('z-[60] w-72 rounded-xl border border-foreground/80 bg-card p-4 shadow-ink-sm animate-in fade-in-0 zoom-in-95', className)}
         {...props}
       />
     </PopoverPrimitive.Portal>

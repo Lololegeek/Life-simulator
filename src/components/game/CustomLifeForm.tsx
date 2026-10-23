@@ -110,7 +110,7 @@ export function CustomLifeForm({ onDone }: { onDone: () => void }) {
                 key={code}
                 onClick={() => setValue('countryCode', code)}
                 className={cn(
-                  'flex items-center gap-2 rounded-xl border border-border px-2 py-1.5 text-left text-xs transition hover:bg-muted',
+                  'flex items-center gap-2 rounded-xl border border-foreground/10 px-2 py-1.5 text-left text-xs transition hover:bg-muted',
                   selected === code && 'border-primary bg-primary/10',
                 )}
               >

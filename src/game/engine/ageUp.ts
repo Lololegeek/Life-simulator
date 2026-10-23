@@ -182,11 +182,13 @@ export function endCareer(c: Character) {
 function finances(c: Character) {
   const independent = c.age >= 18 && !(c.education.enrolled && c.age < 23) && !c.prison;
   if (independent) {
-    let cost = local(c, 11000);
+    // Without income you scrape by: shared flat, family help, small odd jobs.
+    const earning = !!c.career || c.retired;
+    let cost = local(c, earning ? 11000 : 4500);
     if (c.assets.some((a) => a.kind === 'house')) cost *= 0.55;
     const p = partner(c);
     if (p && p.relation === 'spouse') cost *= 0.8;
-    cost += children(c).filter((k) => k.alive && k.age < 18).length * local(c, 4500);
+    cost += children(c).filter((k) => k.alive && k.age < 18).length * local(c, earning ? 4500 : 2000);
     c.money -= Math.round(cost);
   }
   if (c.retired) c.money += c.pension;
@@ -204,12 +206,25 @@ function finances(c: Character) {
     c.money = Math.round(c.money - pay);
     if (c.debt === 0) log(c, 'Tu as remboursé toutes tes dettes !', 'good', '🧾');
   }
-  if (c.debt > 0) c.debt = Math.round(c.debt * 1.04);
+  if (c.debt > 0) c.debt = Math.round(c.debt * 1.03);
 
   if (c.money < 0) {
-    c.money = Math.round(c.money * 1.1);
-    if (chance(0.4)) log(c, `Tu es à découvert (${money(c.money)}). Les agios s’accumulent…`, 'bad', '🏧');
+    c.money = Math.round(c.money * 1.06);
+    if (c.money < -local(c, 40000)) bankruptcy(c);
+    else if (chance(0.4)) log(c, `Tu es à découvert (${money(c.money)}). Les agios s’accumulent…`, 'bad', '🏧');
   }
+}
+
+/** The bank seizes everything and wipes the slate. */
+function bankruptcy(c: Character) {
+  const seized = c.assets.length;
+  c.assets = [];
+  c.holdings = {};
+  c.money = 0;
+  c.debt = Math.round(c.debt * 0.3);
+  c.flags.bankrupt = true;
+  adjust(c, 'happiness', -18);
+  log(c, `Faillite personnelle ! La banque saisit ${seized ? `tes ${seized} bien(s) et ` : ''}tes comptes. Tu repars de zéro.`, 'bad', '⚖️');
 }
 
 function health(c: Character) {

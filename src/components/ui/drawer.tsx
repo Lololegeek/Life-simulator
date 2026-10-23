@@ -11,7 +11,7 @@ export function DrawerContent({ className, children, title }: { className?: stri
     <VaulDrawer.Portal>
       <VaulDrawer.Overlay className="fixed inset-0 z-50 bg-black/50" />
       <VaulDrawer.Content
-        className={cn('fixed inset-x-0 bottom-0 z-50 mx-auto flex max-h-[88dvh] max-w-xl flex-col rounded-t-3xl border border-border bg-card outline-none', className)}
+        className={cn('fixed inset-x-0 bottom-0 z-50 mx-auto flex max-h-[88dvh] max-w-xl flex-col rounded-t-3xl border border-foreground/20 bg-card outline-none', className)}
       >
         <div className="mx-auto mt-3 h-1.5 w-12 shrink-0 rounded-full bg-muted" />
         <VaulDrawer.Title className="sr-only">{title}</VaulDrawer.Title>

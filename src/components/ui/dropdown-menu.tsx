@@ -13,7 +13,7 @@ export function DropdownMenuContent({ className, ...props }: React.ComponentProp
       <DropdownPrimitive.Content
         sideOffset={6}
         align="end"
-        className={cn('z-[60] min-w-52 rounded-xl border border-border bg-card p-1 shadow-xl animate-in fade-in-0 zoom-in-95', className)}
+        className={cn('z-[60] min-w-52 rounded-xl border border-foreground/80 bg-card p-1 shadow-ink-sm animate-in fade-in-0 zoom-in-95', className)}
         {...props}
       />
     </DropdownPrimitive.Portal>

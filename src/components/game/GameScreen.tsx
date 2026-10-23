@@ -101,7 +101,7 @@ export function GameScreen() {
 
   if (isDesktop) {
     return (
-      <div className="bg-aurora h-dvh">
+      <div className="h-dvh">
         <div className="mx-auto grid h-full max-w-7xl grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-5 p-5">
           <div className="flex min-h-0 flex-col gap-4">
             <div className="flex items-start gap-3">
@@ -135,7 +135,7 @@ export function GameScreen() {
   }
 
   return (
-    <div className="bg-aurora flex h-dvh flex-col">
+    <div className="flex h-dvh flex-col">
       <div className="flex items-start gap-2 p-3 pb-2">
         <ProfileCard compact className="flex-1" />
         <SettingsMenu inGame />
